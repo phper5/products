@@ -19,6 +19,37 @@ class Product extends CI_Controller
         $this->load->view('product/index', $data);
         $this->load->view('templates/footer');
     }
+    public function attach($id)
+    {
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+        $this->load->library('product_user_library');
+
+        $this->load->model('product_model');
+        $data['item'] = $this->product_model->getProduct($id);
+        if (empty($data['item'])) {
+            show_404();
+        }
+        $data['title'] = 'attach products';
+        $user_id = $this->product_user_library->getUserId();
+        $this->form_validation->set_rules('price', 'Price', 'required|is_natural_no_zero');
+        $this->form_validation->set_rules('num', 'Num', 'required|is_natural_no_zero');
+        $this->load->model('attache_model');
+        if ($this->form_validation->run() === false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('product/attache');
+            $this->load->view('templates/footer');
+        } else {
+            $data = array(
+                'user_id' => $user_id,
+                'num' => $this->input->post('num'),
+                'product_id' => $id,
+                'price' => $this->input->post('price'),
+            );
+            $this->db->insert('attaches', $data);
+            $this->load->view('product/attachSuccess');
+        }
+    }
     public function manage()
     {
         $this->load->helper('form');

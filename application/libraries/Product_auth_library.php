@@ -23,7 +23,7 @@ class Product_auth_library
             return redirect("product/index");
         }
         //member
-        if ($is_guest && in_array($needle, ['login.success'])) {
+        if ($is_guest && in_array($needle, ['login.success','product.index','product.attach'])) {
             return redirect("login/view");
         }
         //guest
