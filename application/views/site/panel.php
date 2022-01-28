@@ -13,5 +13,10 @@
 		6.4 active products which don't belong to any user.: <?php echo $active_product_not_attched; ?><br>
 		6.5 Amount of all active attached products: <?php echo $active_attached_products; ?><br>
 		6.6 Summarized price of all active attached products: <?php echo $summarized_active_attached_products; ?><br>
+		6.7 Summarized price of all active attached products per user:<br>
+		<?php foreach ($summarized_active_attached_products_per_user as $item){
+			echo 'user: '.$item['username'].' Summarized price:'.$item['total']."<br>";
+		}
+		?><br>
 	</div>
 </div>

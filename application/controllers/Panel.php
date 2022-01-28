@@ -23,7 +23,9 @@ class Panel extends CI_Controller
 		$active_product_not_attched = $this->getActiveProductNotAttched();
 		$all_active_attached_products = $this->getAllActiveAttachedProducts();
 		$summarized_active_attached_products = $this->getSummarizedActiveAttachedProducts();
+		$summarized_active_attached_products_per_user = $this->getSummarizedActiveAttachedProductsPerUser();
 		$data['summarized_active_attached_products'] = $summarized_active_attached_products;
+		$data['summarized_active_attached_products_per_user'] = $summarized_active_attached_products_per_user;
 		$data['active_product_not_attched'] = $active_product_not_attched;
 		$data['active_attached_products'] = $all_active_attached_products;
 		$data['active_user'] = $active_user;
@@ -89,5 +91,13 @@ class Panel extends CI_Controller
 				WHERE products.status = '.Product_model::STATIS_ACTIVE.' ');
 		$data = $query->result();
 		return $data[0]->total?:0;
+	}
+	protected function getSummarizedActiveAttachedProductsPerUser()
+	{
+		$this->load->model('product_model');
+		$query = $this->db->query('sELECT SUM(num*price) as total ,user_id,max(users.username) as username FROM `attaches` left join `products` on attaches.product_id = products.id left join users on attaches.user_id = users.id
+			WHERE products.status = '.Product_model::STATIS_ACTIVE.'  GROUP by user_id ');
+		$data = $query->result('array');
+		return $data?:[];
 	}
 }
