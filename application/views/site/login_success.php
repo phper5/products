@@ -7,7 +7,7 @@ if ($is_admin){
 	<?php
 }else{
 	?>
-	go to <a href="">home page</a>
+	go to <a href="<?php echo site_url('product/index'); ?>">home page</a>
 	<?php
 }
 
