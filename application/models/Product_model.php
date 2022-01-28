@@ -33,7 +33,7 @@ class Product_model extends CI_Model
             'description' => $this->input->post('description'),
             'image' => $this->input->post('image'),
             'timestamps' => time(),
-            'status' => 0
+            'status' => self::STATIS_ACTIVE
         );
         return $this->db->insert('products', $data);
     }
