@@ -11,7 +11,16 @@
 		<?php
 	}else{
 		?>
-		Hi <?php echo $CI->product_user_library->getUsername(); ?>  <a href ="<?php echo site_url('logout/logout'); ?>">logout</a>
+		Hi <?php echo $CI->product_user_library->getUsername(); ?>
+		<?php
+		if ($CI->product_user_library->isAdmin()){
+			?>
+			<a href ="<?php echo site_url('panel/view'); ?>">panel</a>
+			<?php
+		}
+		?>
+		<a href ="<?php echo site_url('product/index'); ?>">products</a>
+		<a href ="<?php echo site_url('logout/logout'); ?>">logout</a>
 		<?php
 	}
 

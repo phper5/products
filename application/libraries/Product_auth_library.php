@@ -18,6 +18,12 @@ class Product_auth_library
         $is_admin = $this->CI->product_user_library->isAdmin();
         $is_guest = $this->CI->product_user_library->isGuest();
         $needle = strtolower($class.'.'.$method);
+		if (!$is_guest )
+		{
+			$this->CI->db->update('users', [
+				'activie_time' => time(),
+			], array('id' => $this->CI->product_user_library->getUserId()));
+		}
         //admin
         if (!$is_admin && in_array($needle, ['panel.view','product.view','product.manage','product.edit','product.create','product.delete'])) {
             return redirect("product/index");
