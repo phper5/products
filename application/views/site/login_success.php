@@ -3,7 +3,7 @@
 <?php
 if ($is_admin){
 	?>
-		go to <a href="">panel</a>
+		go to <a href="<?php echo site_url('panel/view'); ?>">panel</a>
 	<?php
 }else{
 	?>
