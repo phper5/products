@@ -22,6 +22,8 @@ class Panel extends CI_Controller
 		$active_product = $this->getActiveProductNum();
 		$active_product_not_attched = $this->getActiveProductNotAttched();
 		$all_active_attached_products = $this->getAllActiveAttachedProducts();
+		$summarized_active_attached_products = $this->getSummarizedActiveAttachedProducts();
+		$data['summarized_active_attached_products'] = $summarized_active_attached_products;
 		$data['active_product_not_attched'] = $active_product_not_attched;
 		$data['active_attached_products'] = $all_active_attached_products;
 		$data['active_user'] = $active_user;
@@ -76,6 +78,14 @@ class Panel extends CI_Controller
 	{
 		$this->load->model('product_model');
 		$query = $this->db->query('SELECT  SUM(num) as total FROM `attaches` left  join `products` on attaches.product_id = products.id 
+				WHERE products.status = '.Product_model::STATIS_ACTIVE.' ');
+		$data = $query->result();
+		return $data[0]->total?:0;
+	}
+	protected function getSummarizedActiveAttachedProducts()
+	{
+		$this->load->model('product_model');
+		$query = $this->db->query('SELECT  SUM(num*price) as total FROM `attaches` left  join `products` on attaches.product_id = products.id 
 				WHERE products.status = '.Product_model::STATIS_ACTIVE.' ');
 		$data = $query->result();
 		return $data[0]->total?:0;
