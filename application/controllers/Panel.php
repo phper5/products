@@ -16,8 +16,6 @@ class Panel extends CI_Controller
         $data['title'] = 'Admin Panel';
 		$active_user = $this->getActiveUserNum();
 		$verified_user = $this->getVerifiedUserNum();
-		$this->output->enable_profiler(TRUE);
-
 		$active_user_active_product = $this->getActiveUserAttachedActiveProductNum();
 		$active_product = $this->getActiveProductNum();
 		$active_product_not_attched = $this->getActiveProductNotAttched();
@@ -32,6 +30,9 @@ class Panel extends CI_Controller
 		$data['verified_user'] = $verified_user;
 		$data['active_user_active_product'] = $active_user_active_product;
 		$data['active_product'] = $active_product;
+		$this->load->helper('product_currency_helper');
+		$rates = product_currency_rate();
+		$data['rates'] = $rates;
         $this->load->view('templates/header', $data);
         $this->load->view('site/panel', $data);
         $this->load->view('templates/footer');
