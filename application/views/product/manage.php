@@ -14,6 +14,8 @@
 			<input type="submit" value="Delete product">
 		</form>
 		</div>
+		<br>
+		<br>
 
 	<?php endforeach; ?>
 </div>
