@@ -20,7 +20,8 @@ class Panel extends CI_Controller
 
 		$active_user_active_product = $this->getActiveUserAttachedActiveProductNum();
 		$active_product = $this->getActiveProductNum();
-
+		$active_product_not_attched = $this->getActiveProductNotAttched();
+		$data['active_product_not_attched'] = $active_product_not_attched;
 		$data['active_user'] = $active_user;
 		$data['verified_user'] = $verified_user;
 		$data['active_user_active_product'] = $active_user_active_product;
@@ -47,7 +48,7 @@ class Panel extends CI_Controller
 		$this->load->model('product_model');
 		$this->db->from('products');
 		$this->db->where('status  =', Product_model::STATIS_ACTIVE);
-		return$this->db->count_all_results();;
+		return$this->db->count_all_results();
 	}
 	protected function getActiveUserAttachedActiveProductNum()
 	{
@@ -61,5 +62,12 @@ class Panel extends CI_Controller
 		$this->db->join('products', 'attaches.product_id = products.id', 'left');
 		$this->db->where('products.status  =', Product_model::STATIS_ACTIVE);
 		return $this->db->count_all_results();
+	}
+	protected function getActiveProductNotAttched()
+	{
+		$this->load->model('product_model');
+		$query = $this->db->query('SELECT count(*) as num FROM `products` WHERE status = '.User_model::EMAIL_VERIFIED.' and id not in (SELECT product_id FROM attaches )');
+		$data = $query->result();
+		return $data[0]->num;
 	}
 }
