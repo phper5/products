@@ -19,10 +19,12 @@ class Panel extends CI_Controller
 		$this->output->enable_profiler(TRUE);
 
 		$active_user_active_product = $this->getActiveUserAttachedActiveProductNum();
+		$active_product = $this->getActiveProductNum();
 
 		$data['active_user'] = $active_user;
 		$data['verified_user'] = $verified_user;
 		$data['active_user_active_product'] = $active_user_active_product;
+		$data['active_product'] = $active_product;
         $this->load->view('templates/header', $data);
         $this->load->view('site/panel', $data);
         $this->load->view('templates/footer');
@@ -40,6 +42,13 @@ class Panel extends CI_Controller
 		$query = $this->db->get('users');
 		return $query->num_rows();
 	}
+	protected function getActiveProductNum()
+	{
+		$this->load->model('product_model');
+		$this->db->from('products');
+		$this->db->where('status  =', Product_model::STATIS_ACTIVE);
+		return$this->db->count_all_results();;
+	}
 	protected function getActiveUserAttachedActiveProductNum()
 	{
 		$this->load->model('product_model');
@@ -51,6 +60,6 @@ class Panel extends CI_Controller
 		$this->db->join('attaches', 'users.id = attaches.user_id', 'left');
 		$this->db->join('products', 'attaches.product_id = products.id', 'left');
 		$this->db->where('products.status  =', Product_model::STATIS_ACTIVE);
-		return $this->db->count_all_results('',false);
+		return $this->db->count_all_results();
 	}
 }
