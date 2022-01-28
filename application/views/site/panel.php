@@ -11,5 +11,6 @@
 		6.2 active and verified user who attached active products: <?php echo $active_user_active_product; ?><br>
 		6.3 active products: <?php echo $active_product; ?><br>
 		6.4 active products which don't belong to any user.: <?php echo $active_product_not_attched; ?><br>
+		6.5 Amount of all active attached products: <?php echo $active_attached_products; ?><br>
 	</div>
 </div>
