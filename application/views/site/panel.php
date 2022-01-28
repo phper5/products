@@ -12,6 +12,7 @@
 	<div>
 		<a href="<?php echo site_url("product/create");?>">add product</a> <br>
 		<a href="<?php echo site_url("product/manage");?>">manage product</a> <br>
+		<a href="<?php echo site_url("product/index");?>">view products</a> <br>
 	</div>
 	<br>
 	<div>
