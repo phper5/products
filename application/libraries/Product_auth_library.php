@@ -19,8 +19,8 @@ class Product_auth_library
         $is_guest = $this->CI->product_user_library->isGuest();
         $needle = strtolower($class.'.'.$method);
         //admin
-        if (!$is_admin && in_array($needle, ['panel.view'])) {
-            return redirect("product/list");
+        if (!$is_admin && in_array($needle, ['panel.view','product.view','product.manage','product.edit','product.create','product.delete'])) {
+            return redirect("product/index");
         }
         //member
         if ($is_guest && in_array($needle, ['login.success'])) {
