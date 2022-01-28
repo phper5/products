@@ -6,7 +6,8 @@
 		<a href="<?php echo site_url("product/manage");?>">manage product</a> <br>
 	</div>
 	<div>
-		active user: <?php echo $active_user; ?> <br>
-		verified user: <?php echo $verified_user; ?>
+		6.1 active user: <?php echo $active_user; ?> <br>
+		6.1 verified user: <?php echo $verified_user; ?><br>
+		6.2 active and verified user who attached active products: <?php echo $active_user_active_product; ?><br>
 	</div>
 </div>
