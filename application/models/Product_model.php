@@ -2,8 +2,8 @@
 
 class Product_model extends CI_Model
 {
-	const STATIS_INACTIVE = 0;
-	const STATIS_ACTIVE = 1;
+    const STATIS_INACTIVE = 0;
+    const STATIS_ACTIVE = 1;
 
     public function __construct()
     {
